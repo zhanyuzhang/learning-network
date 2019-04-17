@@ -2,20 +2,20 @@
 
 > 注意：windows 系统需要安装 `gitbash`, 然后使用 `OpenSSL` 生成 我们需要的文件.
 
-#### 生成私钥 key 文件：
+## 生成私钥 key 文件
 
 ```shell
 openssl genrsa -out privatekey.pem 1024
 ```
 成功执行后，当前目录就会多了一个 `privatekey.pem` 文件了。
 
-#### 通过私钥生成 CSR 证书签名
+## 通过私钥生成 CSR 证书签名
 ```shell
 openssl req -new -key privatekey.pem -out certrequest.csr
 ```
 这过程会出现比较多的提问，全部按 enter 跳过就行了。成功执行后，会多出一个 `certificate.csr` 文件。
 
-#### 通过证书签名生成证书文件
+## 通过证书签名生成证书文件
 ```shell
 openssl x509 -req -in certrequest.csr -signkey privatekey.pem -out
 ```
@@ -25,7 +25,7 @@ openssl x509 -req -in certrequest.csr -signkey privatekey.pem -out
 
 目前，高版本的 node 都内置了 http2 和 https 模块，所以不需要安装第三方依赖，直接引入使用即可。
 
-### 创建 https 服务
+## 创建 https 服务
 
 ```javascript
 const fs = require('fs');
@@ -42,7 +42,7 @@ const server = https.createServer({
 console.log('listening on https://localhost:3000');
 ```
 
-### 创建 http2 服务
+## 创建 http2 服务
 ```javascript
 const http2 = require('http2');
 const fs = require('fs');
@@ -67,5 +67,5 @@ server.listen(3000);
 console.log('listening on https://localhost:3000');
 ```
 
-### 注意：
+## 注意
 1. 因为我们的证书是没有权威机构认证过的，所以第一次打开，浏览器可以会有安全提醒，直接选择高级，仍要访问就行了。
